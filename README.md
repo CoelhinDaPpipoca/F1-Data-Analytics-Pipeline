@@ -13,17 +13,20 @@ Com diferentes frequências (batch e streaming)
 
 Isso dificulta a análise integrada e a geração de insights consistentes.
 
+
 🎯 Objetivos
 Integrar dados batch e streaming
 Estruturar e armazenar os dados
 Permitir transformação e análise
 Disponibilizar dados para dashboards
 
+
 👥 Stakeholders
 Analistas de dados esportivos
 Fãs de Fórmula 1
 Criadores de conteúdo
 Equipes (simulado)
+
 
 📊 Definição dos Dados
 📦 Dados Batch
@@ -40,6 +43,7 @@ Arquivos CSV
 Formato: JSON / CSV
 Latência: Alta
 
+
 ⚡ Dados de Streaming
 Velocidade
 Posição na pista
@@ -49,6 +53,7 @@ Eventos de corrida
 Fonte: Simulação (Python)
 Formato: JSON
 Latência: Baixa
+
 
 🧩 Domínios e Serviços
 Domínios
@@ -64,6 +69,7 @@ Processamento de dados
 Armazenamento
 Consumo (dashboards/API)
 
+
 🏗️ Arquitetura (Visão Geral)
 
 O projeto segue uma abordagem inspirada em:
@@ -73,6 +79,7 @@ Conceito de Data Lake
 🔄 Fluxo de Dados
 ( print usada na apresentação)
 
+
 ⚖️ Justificativa da Arquitetura
 
 A arquitetura escolhida permite:
@@ -80,6 +87,7 @@ A arquitetura escolhida permite:
 Processamento de dados históricos (batch)
 Processamento de dados em tempo real (streaming)
 Escalabilidade e separação de responsabilidades
+
 
 ⚙️ Tecnologias
 🔹 Ingestão
@@ -96,11 +104,13 @@ Apache Airflow
 🔹 Visualização
 Power BI
 
+
 🔐 Governança e DataOps
 Versionamento com GitHub
 Monitoramento por logs
 Validação de dados
 Controle básico de qualidade
+
 
 ⚠️ Riscos e Limitações
 Dependência de APIs externas
@@ -108,12 +118,15 @@ Dados de streaming simulados
 Limitações de hardware
 Complexidade de ferramentas distribuídas
 
+
 🚀 Próximos Passos
 Implementar ingestão de dados
 Criar banco de dados PostgreSQL
 Desenvolver pipeline em Python
 Simular streaming
 Criar dashboards no Power BI
+
+
 📚 Referências
 Documentação de APIs de Fórmula 1
 Documentação oficial das ferramentas
