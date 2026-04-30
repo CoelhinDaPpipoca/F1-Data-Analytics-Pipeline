@@ -77,7 +77,15 @@ O projeto segue uma abordagem inspirada em:
 Arquitetura Lambda (batch + streaming)
 Conceito de Data Lake
 🔄 Fluxo de Dados
-( print usada na apresentação)
+
+```mermaid
+flowchart LR
+    A[API / CSV] --> B[Ingestão Batch]
+    C[Streaming] --> D[Kafka]
+    B --> E[Armazenamento]
+    D --> E
+    E --> F[Processamento]
+    F --> G[Dashboard]
 
 
 ⚖️ Justificativa da Arquitetura
