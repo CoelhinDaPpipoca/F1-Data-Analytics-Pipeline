@@ -198,6 +198,8 @@ Criar dashboards no Power BI
 
 
 📚 Referências
-Documentação de APIs de Fórmula 1
-Documentação oficial das ferramentas
-Conteúdo das aulas da disciplina
+- Ergast API (dados de Fórmula 1)  
+- Documentação do Apache Kafka  
+- Documentação do PostgreSQL  
+- Documentação do Power BI  
+- Materiais da disciplina
