@@ -70,34 +70,91 @@ Armazenamento
 Consumo (dashboards/API)
 
 
-🏗️ Arquitetura (Visão Geral)
+🏗️ 4.4 Arquitetura — Fluxo de Dados
+📌 Visão Geral
 
-O projeto segue uma abordagem inspirada em:
+A arquitetura proposta para o projeto segue uma abordagem híbrida baseada em:
 
-Arquitetura Lambda (batch + streaming)
-Conceito de Data Lake
+Arquitetura Lambda (processamento batch + streaming)
+Conceito de Data Lake com organização em camadas (Medalhão)
 
-🔄 Fluxo de Dados
+Essa abordagem permite lidar tanto com dados históricos quanto com dados em tempo real, garantindo flexibilidade e escalabilidade.
 
-```mermaid
+🔄 Fluxo de Dados (Ponta a Ponta)
+
 flowchart LR
-    A[API / CSV] --> B[Ingestão Batch]
-    C[Streaming] --> D[Kafka]
-    B --> E[Armazenamento]
-    D --> E
-    E --> F[Processamento]
-    F --> G[Dashboard]
-```
+
+%% FONTES
+A[API F1 / CSV] --> B[Ingestão Batch]
+C[Streaming Simulado] --> D[Kafka]
+
+%% INGESTÃO
+B --> E[Camada Bronze - Raw Data]
+D --> E
+
+%% DATA LAKE
+E --> F[Camada Silver - Dados Limpos]
+F --> G[Camada Gold - Dados Agregados]
+
+%% PROCESSAMENTO
+F --> H[Processamento Batch (Python/Spark)]
+D --> I[Processamento Streaming]
+
+%% CONSUMO
+G --> J[Dashboard (Power BI)]
+G --> K[API / Serviços]
+
+
+🧱 Descrição das Etapas
+🔹 Fontes de Dados
+APIs e arquivos CSV fornecem dados históricos (batch)
+Streaming simulado representa eventos em tempo real
+🔹 Ingestão
+Dados batch são coletados periodicamente
+Dados de streaming são enviados continuamente via Apache Kafka
+🔹 Armazenamento (Data Lake)
+
+Os dados são organizados em camadas:
+
+Bronze: dados brutos, sem tratamento
+Silver: dados limpos e estruturados
+Gold: dados agregados e prontos para análise
+🔹 Processamento
+Batch: transformação com Python ou Apache Spark
+Streaming: processamento em tempo real (conceitual)
+🔹 Consumo
+Dashboards com Power BI
+Possível exposição via APIs
 
 
 ⚖️ Justificativa da Arquitetura
 
-A arquitetura escolhida permite:
+A escolha da arquitetura Lambda combinada com Data Lake se justifica por:
 
-Processamento de dados históricos (batch)
-Processamento de dados em tempo real (streaming)
-Escalabilidade e separação de responsabilidades
+Suporte a dados batch e streaming
+Separação entre ingestão, processamento e consumo
+Facilidade de expansão futura
+Organização eficiente dos dados em camadas
 
+
+🔄 Trade-offs
+✔ Vantagens
+Escalabilidade
+Flexibilidade
+Suporte a múltiplos tipos de dados
+Organização clara (Medalhão)
+
+
+❌ Desvantagens
+Maior complexidade arquitetural
+Necessidade de gerenciar múltiplos fluxos (batch + streaming)
+Dependência de ferramentas mais robustas
+
+
+🔁 Considerações sobre Escalabilidade e Acoplamento
+Baixo acoplamento: cada etapa (ingestão, processamento, consumo) funciona de forma independente
+Alta escalabilidade: possível substituir tecnologias sem impactar todo o sistema
+Reversibilidade: decisões podem ser ajustadas na Parte 2 (ex: trocar Spark por pandas)
 
 ⚙️ Tecnologias
 🔹 Ingestão
