@@ -82,6 +82,7 @@ Essa abordagem permite lidar tanto com dados históricos quanto com dados em tem
 
 🔄 Fluxo de Dados (Ponta a Ponta)
 
+```mermaid
 flowchart LR
 
 %% FONTES
@@ -103,7 +104,7 @@ D --> I[Processamento Streaming]
 %% CONSUMO
 G --> J[Dashboard (Power BI)]
 G --> K[API / Serviços]
-
+```
 
 🧱 Descrição das Etapas
 🔹 Fontes de Dados
