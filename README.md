@@ -85,20 +85,20 @@ Essa abordagem permite lidar tanto com dados históricos quanto com dados em tem
 ```mermaid
 flowchart LR
 
-A[API F1 / CSV] --> B[Ingestão Batch]
+A[API F1 / CSV] --> B[Ingestao Batch]
 C[Streaming Simulado] --> D[Kafka]
 
-B --> E[Camada Bronze - Raw Data]
+B --> E[Bronze - Raw Data]
 D --> E
 
-E --> F[Camada Silver - Dados Limpos]
-F --> G[Camada Gold - Dados Agregados]
+E --> F[Silver - Dados Limpos]
+F --> G[Gold - Dados Agregados]
 
-F --> H[Processamento Batch (Python/Spark)]
+F --> H[Processamento Batch]
 D --> I[Processamento Streaming]
 
-G --> J[Dashboard (Power BI)]
-G --> K[API / Serviços]
+G --> J[Dashboard Power BI]
+G --> K[API Servicos]
 ```
 
 🧱 Descrição das Etapas
