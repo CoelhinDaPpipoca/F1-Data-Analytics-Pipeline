@@ -76,6 +76,7 @@ O projeto segue uma abordagem inspirada em:
 
 Arquitetura Lambda (batch + streaming)
 Conceito de Data Lake
+
 🔄 Fluxo de Dados
 
 ```mermaid
