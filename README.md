@@ -70,7 +70,7 @@ Armazenamento
 Consumo (dashboards/API)
 
 
-🏗️ 4.4 Arquitetura — Fluxo de Dados
+🏗️ Arquitetura — Fluxo de Dados
 📌 Visão Geral
 
 A arquitetura proposta para o projeto segue uma abordagem híbrida baseada em:
@@ -103,8 +103,15 @@ G --> K[API Servicos]
 
 🧱 Descrição das Etapas
 🔹 Fontes de Dados
-APIs e arquivos CSV fornecem dados históricos (batch)
-Streaming simulado representa eventos em tempo real
+- API pública de Fórmula 1 (ex: Ergast API)  
+  → fornece dados históricos como resultados, pilotos e corridas  
+
+- Arquivos CSV  
+  → datasets históricos utilizados para análise complementar  
+
+- Simulação em Python  
+  → geração de dados de streaming (telemetria simulada)
+
 🔹 Ingestão
 Dados batch são coletados periodicamente
 Dados de streaming são enviados continuamente via Apache Kafka
