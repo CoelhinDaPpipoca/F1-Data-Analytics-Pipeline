@@ -18,11 +18,13 @@ Integrar dados batch e streaming
 Estruturar e armazenar os dados
 Permitir transformação e análise
 Disponibilizar dados para dashboards
+
 👥 Stakeholders
 Analistas de dados esportivos
 Fãs de Fórmula 1
 Criadores de conteúdo
 Equipes (simulado)
+
 📊 Definição dos Dados
 📦 Dados Batch
 Resultados de corridas
@@ -61,6 +63,7 @@ Ingestão de streaming
 Processamento de dados
 Armazenamento
 Consumo (dashboards/API)
+
 🏗️ Arquitetura (Visão Geral)
 
 O projeto segue uma abordagem inspirada em:
@@ -68,6 +71,8 @@ O projeto segue uma abordagem inspirada em:
 Arquitetura Lambda (batch + streaming)
 Conceito de Data Lake
 🔄 Fluxo de Dados
+( print usada na apresentação)
+
 ⚖️ Justificativa da Arquitetura
 
 A arquitetura escolhida permite:
@@ -75,6 +80,7 @@ A arquitetura escolhida permite:
 Processamento de dados históricos (batch)
 Processamento de dados em tempo real (streaming)
 Escalabilidade e separação de responsabilidades
+
 ⚙️ Tecnologias
 🔹 Ingestão
 API REST
@@ -89,16 +95,19 @@ Apache Spark (opcional)
 Apache Airflow
 🔹 Visualização
 Power BI
+
 🔐 Governança e DataOps
 Versionamento com GitHub
 Monitoramento por logs
 Validação de dados
 Controle básico de qualidade
+
 ⚠️ Riscos e Limitações
 Dependência de APIs externas
 Dados de streaming simulados
 Limitações de hardware
 Complexidade de ferramentas distribuídas
+
 🚀 Próximos Passos
 Implementar ingestão de dados
 Criar banco de dados PostgreSQL
