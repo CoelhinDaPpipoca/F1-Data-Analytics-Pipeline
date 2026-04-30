@@ -86,6 +86,7 @@ flowchart LR
     D --> E
     E --> F[Processamento]
     F --> G[Dashboard]
+```
 
 
 ⚖️ Justificativa da Arquitetura
