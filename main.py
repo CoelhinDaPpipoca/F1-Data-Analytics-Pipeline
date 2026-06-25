@@ -1,9 +1,12 @@
 import subprocess
 import time
+from datetime import datetime
 
-print("\n===================")
-print("PIPELINE F1")
-print("===================\n")
+print("\n==============================")
+print("🏎️ F1 DATA ANALYTICS PIPELINE")
+print("==============================\n")
+
+inicio = time.time()
 
 etapas = [
 
@@ -15,10 +18,24 @@ etapas = [
 
 ]
 
+log = "logs/pipeline.log"
+
+with open(
+log,
+"a",
+encoding="utf-8"
+) as f:
+
+    f.write("\n")
+    f.write("="*40 + "\n")
+    f.write(
+        f"Execução: {datetime.now()}\n"
+    )
+
 for etapa in etapas:
 
     print(
-        f"\nExecutando {etapa}"
+        f"\nExecutando → {etapa}"
     )
 
     resultado = subprocess.run(
@@ -35,16 +52,55 @@ for etapa in etapas:
         resultado.stdout
     )
 
+    with open(
+        log,
+        "a",
+        encoding="utf-8"
+    ) as f:
+
+        f.write(
+            f"\nETAPA: {etapa}\n"
+        )
+
+        f.write(
+            resultado.stdout
+        )
+
     if resultado.returncode != 0:
 
         print(
-            resultado.stderr
+            "❌ Falha detectada"
         )
+
+        with open(
+            log,
+            "a",
+            encoding="utf-8"
+        ) as f:
+
+            f.write(
+                resultado.stderr
+            )
 
         break
 
-    time.sleep(1)
-
-print(
-"\nPIPELINE FINALIZADO"
+tempo = round(
+time.time()-inicio,
+2
 )
+
+with open(
+log,
+"a",
+encoding="utf-8"
+) as f:
+
+    f.write(
+        f"\nTempo total: {tempo}s\n"
+    )
+
+print("\n==============================")
+print("✅ PIPELINE FINALIZADO")
+print(f"⏱ Tempo: {tempo}s")
+print("📄 Logs gerados")
+print("==============================")

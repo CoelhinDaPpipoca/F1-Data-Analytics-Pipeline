@@ -1,4 +1,6 @@
 pandas
+streamlit
+matplotlib
 requests
 sqlalchemy
 psycopg2-binary

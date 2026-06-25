@@ -7,36 +7,32 @@ df = pd.read_csv(
     "data/silver/f1_clean.csv"
 )
 
-# agregação automática baseada nas colunas
+gold = df.copy()
 
-colunas = list(df.columns)
+gold = gold.sort_values(
 
-if len(colunas) >= 2:
+    "points",
 
-    gold = (
-        df
-        .groupby(
-            colunas[0]
-        )
-        .size()
-        .reset_index(
-            name="quantidade"
-        )
-    )
+    ascending=False
 
-else:
-
-    gold = df.copy()
+)
 
 os.makedirs(
+
     "data/gold",
+
     exist_ok=True
+
 )
 
 gold.to_csv(
+
     "data/gold/dashboard.csv",
+
     index=False
+
 )
 
-print("Gold concluído")
-print(gold.head())
+print(
+    gold.head()
+)

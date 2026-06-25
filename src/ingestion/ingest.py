@@ -1,20 +1,32 @@
-import shutil
+import pandas as pd
 import os
 
 print("Iniciando ingestão...")
 
-origem = "data/bronze/sample_f1_data.csv"
+origem = "data/sample_f1_data.csv"
 
-destino = "data/bronze/f1_raw.csv"
+df = pd.read_csv(
+    origem
+)
 
 os.makedirs(
     "data/bronze",
     exist_ok=True
 )
 
-shutil.copy(
-    origem,
-    destino
+destino = (
+    "data/bronze/f1_raw.csv"
 )
 
-print("Ingestão concluída")
+df.to_csv(
+    destino,
+    index=False
+)
+
+print(
+    "Ingestão concluída"
+)
+
+print(
+    f"Registros carregados: {len(df)}"
+)

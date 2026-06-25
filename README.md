@@ -1,205 +1,212 @@
-# F1-Data-Analytics-Pipeline
-Este projeto tem como objetivo o planejamento de um pipeline de engenharia de dados aplicado ao contexto da Formula 1
+# 🏎️ F1 Data Analytics Pipeline
 
-A proposta consiste em integrar dados históricos e dados em tempo real (simulados), permitindo análise de desempenho de pilotos, equipes e corridas por meio de um fluxo estruturado de dados.
+Projeto desenvolvido para implementação do ciclo de vida de Engenharia de Dados utilizando dados de Fórmula 1.
 
-❗ Problema
+---
 
-Os dados da Fórmula 1 estão:
+# Objetivo
 
-Distribuídos em múltiplas fontes
-Em diferentes formatos (JSON, CSV)
-Com diferentes frequências (batch e streaming)
+Construir um pipeline ponta a ponta capaz de realizar:
 
-Isso dificulta a análise integrada e a geração de insights consistentes.
+* Ingestão de dados
+* Armazenamento em camadas
+* Transformação
+* Orquestração
+* Consumo analítico
+* Containerização
 
+O objetivo foi transformar dados brutos em informações prontas para análise.
 
-🎯 Objetivos
-Integrar dados batch e streaming
-Estruturar e armazenar os dados
-Permitir transformação e análise
-Disponibilizar dados para dashboards
+---
 
-
-👥 Stakeholders
-Analistas de dados esportivos
-Fãs de Fórmula 1
-Criadores de conteúdo
-Equipes (simulado)
-
-
-📊 Definição dos Dados
-📦 Dados Batch
-Resultados de corridas
-Classificações
-Tempos de volta
-Dados de pilotos e equipes
-
-Fontes:
-
-API pública (ex: Ergast)
-Arquivos CSV
-
-Formato: JSON / CSV
-Latência: Alta
-
-
-⚡ Dados de Streaming
-Velocidade
-Posição na pista
-Pit stops
-Eventos de corrida
-
-Fonte: Simulação (Python)
-Formato: JSON
-Latência: Baixa
-
-
-🧩 Domínios e Serviços
-Domínios
-Corridas
-Pilotos
-Equipes
-Telemetria
-Analytics
-Serviços
-Ingestão de dados batch
-Ingestão de streaming
-Processamento de dados
-Armazenamento
-Consumo (dashboards/API)
-
-
-🏗️ Arquitetura — Fluxo de Dados
-📌 Visão Geral
-
-A arquitetura proposta para o projeto segue uma abordagem híbrida baseada em:
-
-Arquitetura Lambda (processamento batch + streaming)
-Conceito de Data Lake com organização em camadas (Medalhão)
-
-Essa abordagem permite lidar tanto com dados históricos quanto com dados em tempo real, garantindo flexibilidade e escalabilidade.
-
-🔄 Fluxo de Dados (Ponta a Ponta)
+# Arquitetura As-Built
 
 ```mermaid
 flowchart LR
 
-A[API F1 / CSV] --> B[Ingestao Batch]
-C[Streaming Simulado] --> D[Kafka]
+A[CSV Fonte]
 
-B --> E[Bronze - Raw Data]
-D --> E
+-->
 
-E --> F[Silver - Dados Limpos]
-F --> G[Gold - Dados Agregados]
+B[Ingestão Python]
 
-F --> H[Processamento Batch]
-D --> I[Processamento Streaming]
+-->
 
-G --> J[Dashboard Power BI]
-G --> K[API Servicos]
+C[Bronze]
+
+-->
+
+D[Transformação]
+
+-->
+
+E[Silver]
+
+-->
+
+F[Agregação]
+
+-->
+
+G[Gold]
+
+-->
+
+H[Dashboard Streamlit]
+
+-->
+
+I[Docker]
 ```
 
-🧱 Descrição das Etapas
-🔹 Fontes de Dados
-- API pública de Fórmula 1 (ex: Ergast API)  
-  → fornece dados históricos como resultados, pilotos e corridas  
+---
 
-- Arquivos CSV  
-  → datasets históricos utilizados para análise complementar  
+# Estrutura do Projeto
 
-- Simulação em Python  
-  → geração de dados de streaming (telemetria simulada)
+```text
+data/
 
-🔹 Ingestão
-Dados batch são coletados periodicamente
-Dados de streaming são enviados continuamente via Apache Kafka
-🔹 Armazenamento (Data Lake)
+bronze/
+silver/
+gold/
 
-Os dados são organizados em camadas:
+src/
 
-Bronze: dados brutos, sem tratamento
-Silver: dados limpos e estruturados
-Gold: dados agregados e prontos para análise
-🔹 Processamento
-Batch: transformação com Python ou Apache Spark
-Streaming: processamento em tempo real (conceitual)
-🔹 Consumo
-Dashboards com Power BI
-Possível exposição via APIs
+ingestion/
+transform/
+storage/
+serving/
 
+logs/
 
-⚖️ Justificativa da Arquitetura
+main.py
+dashboard.py
+Dockerfile
+requirements.txt
+```
 
-A escolha da arquitetura Lambda combinada com Data Lake se justifica por:
+---
 
-Suporte a dados batch e streaming
-Separação entre ingestão, processamento e consumo
-Facilidade de expansão futura
-Organização eficiente dos dados em camadas
+# Tecnologias Utilizadas
 
+* Python
+* Pandas
+* Streamlit
+* Docker
+* GitHub
+* CSV
+* Mermaid
 
-🔄 Trade-offs
-✔ Vantagens
-Escalabilidade
-Flexibilidade
-Suporte a múltiplos tipos de dados
-Organização clara (Medalhão)
+---
 
+# Fluxo do Pipeline
 
-❌ Desvantagens
-Maior complexidade arquitetural
-Necessidade de gerenciar múltiplos fluxos (batch + streaming)
-Dependência de ferramentas mais robustas
+CSV
 
+↓
 
-🔁 Considerações sobre Escalabilidade e Acoplamento
-Baixo acoplamento: cada etapa (ingestão, processamento, consumo) funciona de forma independente
-Alta escalabilidade: possível substituir tecnologias sem impactar todo o sistema
-Reversibilidade: decisões podem ser ajustadas na Parte 2 (ex: trocar Spark por pandas)
+Ingestão (`ingest.py`)
 
-⚙️ Tecnologias
-🔹 Ingestão
-API REST
-Apache Kafka
-🔹 Armazenamento
-PostgreSQL
-Data Lake (arquivos locais)
-🔹 Processamento
-Python (pandas)
-Apache Spark (opcional)
-🔹 Orquestração
-Apache Airflow
-🔹 Visualização
-Power BI
+↓
 
+Bronze
 
-🔐 Governança e DataOps
-Versionamento com GitHub
-Monitoramento por logs
-Validação de dados
-Controle básico de qualidade
+↓
 
+Transformação (`transform.py`)
 
-⚠️ Riscos e Limitações
-Dependência de APIs externas
-Dados de streaming simulados
-Limitações de hardware
-Complexidade de ferramentas distribuídas
+↓
 
+Silver
 
-🚀 Próximos Passos
-Implementar ingestão de dados
-Criar banco de dados PostgreSQL
-Desenvolver pipeline em Python
-Simular streaming
-Criar dashboards no Power BI
+↓
 
+Agregação (`gold.py`)
 
-📚 Referências
-- Ergast API (dados de Fórmula 1)  
-- Documentação do Apache Kafka  
-- Documentação do PostgreSQL  
-- Documentação do Power BI  
-- Materiais da disciplina
+↓
+
+Dashboard (`dashboard.py`)
+
+↓
+
+Docker
+
+---
+
+# Qualidade, Segurança e Governança
+
+## Qualidade
+
+* Limpeza de dados
+* Tratamento de valores nulos
+* Remoção de duplicatas
+
+## Segurança
+
+* Dependências controladas
+* Ambiente isolado via Docker
+
+## Governança
+
+* Versionamento Git
+* Estrutura organizada
+* Pipeline reproduzível
+
+## Monitoramento
+
+* Logs automáticos
+* Histórico de execução
+
+---
+
+# Mudanças em relação ao planejamento inicial
+
+Durante a implementação ocorreram adaptações:
+
+* Spark substituído por Pandas
+* Airflow substituído por `main.py`
+* PostgreSQL substituído por Data Lake local
+* Streaming substituído por processamento batch
+* Docker utilizado para garantir portabilidade
+
+---
+
+# Como Executar
+
+Instalar dependências:
+
+```bash
+pip install -r requirements.txt
+```
+
+Executar pipeline:
+
+```bash
+python main.py
+```
+
+Subir dashboard:
+
+```bash
+docker build -t f1-pipeline .
+
+docker run -p 8501:8501 f1-pipeline
+```
+
+Abrir:
+
+```text
+http://localhost:8501
+```
+
+---
+
+# Resultado
+
+Dashboard analítico contendo:
+
+* Ranking de pilotos
+* Ranking de equipes
+* KPIs
+* Estatísticas da temporada
+* Dados processados em Gold
